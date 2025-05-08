@@ -11,6 +11,7 @@ public class ComputerInBack {
 
 
     public Image ColourConverterButton(Image mainImage){
+        System.out.println("image converter button working!");
 
         int width = (int) mainImage.getWidth();
         int height = (int) mainImage.getHeight();
@@ -64,29 +65,29 @@ public class ComputerInBack {
                 double currentSaturation = color.getSaturation();
                 double currentBrightness = color.getBrightness();
 
-                if(((hue <= 50 || hue >= 300)|| ((hue >= 190 || hue <= 270) && saturation >= 0.15 && brightness >= 0.2))){
+                // Check if the color is within the target ranges (red or purple)
+                if ((currentHue <= 50 || currentHue >= 300) || 
+                (currentHue >= 190 && currentHue <= 270 && currentSaturation >= 0.15 && currentBrightness >= 0.2)) {
+                
+                // Adjust hue (keeping it in 0-360 range)
+                double newHue = (currentHue + hue) % 360;
+                if (newHue < 0) {
+                    newHue += 360;
+                }
 
-                // Adjust hue
-                double newHue = ((currentHue + hue) % 360 + 360) % 360;
+                // Adjust saturation and brightness for matching pixels
+                double newSaturation = Math.max(0, Math.min(1, currentSaturation * saturation));
+                double newBrightness = Math.max(0, Math.min(1, currentBrightness * brightness));
 
-                // Simply use the saturation value from the slider
-                double newSaturation = currentSaturation * saturation;
-                newSaturation = clamp(newSaturation, 0, 1);
-
-                // Similarly for brightness
-                double newBrightness = currentBrightness * brightness;
-                newBrightness = clamp(newBrightness, 0, 1);
-
-                // Create and set the new color
+                // Set new color for matching pixels
                 pxWriter.setColor(x, y, Color.hsb(newHue, newSaturation, newBrightness));
-            }}
+            } else {
+                // Keep white if no
+                pxWriter.setColor(x, y, color);
+            }
         }
-
-        return newImg;
     }
 
-    // Helper method to clamp values between min and max
-    private double clamp(double value, double min, double max) {
-        return Math.min(max, Math.max(min, value));
-    }
+    return newImg;
+}
 }
