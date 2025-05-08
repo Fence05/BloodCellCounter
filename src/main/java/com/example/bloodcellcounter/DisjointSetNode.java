@@ -1,26 +1,25 @@
 package com.example.bloodcellcounter;
 
 
-public class DisjointNode<T> {
+public class DisjointSetNode<T> {
 
-    private DisjointNode<T> parent=null;
+    private DisjointSetNode<T> parent=null;
     private T data;
-    private int width = 1;
-    private int size = 1;
+    private int size = 1;               //proper encapsulation done later for private
     private int x;
     private int y;
 
-    public DisjointNode(T data,int x,int y) {
+    public DisjointSetNode(T data,int x,int y) {
         this.data = data;
         this.x=x;
         this.y=y;
     }
 
-    public DisjointNode<T> getParent() {
+    public DisjointSetNode<T> getParent() {
         return parent;
     }
 
-    public void setParent(DisjointNode<T> parent) {
+    public void setParent(DisjointSetNode<T> parent) {
         this.parent = parent;
     }
 
@@ -31,10 +30,6 @@ public class DisjointNode<T> {
     public void setData(T data) {
         this.data = data;
     }
-
-    public int getWidth() {return width;}
-
-    public void setWidth(int width) {this.width = width;}
 
     public int getSize() {return size;}
 
