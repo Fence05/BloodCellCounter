@@ -17,18 +17,18 @@
                <children>
                   <Button fx:id="loadButton" layoutX="51.0" layoutY="35.0" mnemonicParsing="false" onAction="#getImages" prefHeight="26.0" prefWidth="120.0" text="Load Image" />
                   <ImageView fx:id="imageView" fitHeight="300.0" fitWidth="300.0" layoutX="260.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
-                  <Slider fx:id="hueSlider" layoutX="40.0" layoutY="104.0">
+                  <Slider fx:id="hueSlider" layoutX="40.0" layoutY="104.0" onDragDetected="#applyCustomImageSlider">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </Slider>
-                  <Slider fx:id="saturationSlider" layoutX="40.0" layoutY="145.0" />
+                  <Slider fx:id="saturationSlider" layoutX="40.0" layoutY="145.0" onDragDetected="#applyCustomImageSlider" />
                   <Label layoutX="83.0" layoutY="87.0" text="Hue Slider" />
                   <Label layoutX="67.0" layoutY="128.0" text="Saturation Slider" />
-                  <Button layoutX="128.0" layoutY="211.0" mnemonicParsing="false" text="Auto Convert" />
-                  <Button layoutX="21.0" layoutY="211.0" mnemonicParsing="false" text="Default Image" />
+                  <Button layoutX="128.0" layoutY="211.0" mnemonicParsing="false" onAction="#applyCustomImageButton" text="Auto Convert" />
+                  <Button layoutX="21.0" layoutY="211.0" mnemonicParsing="false" onAction="#applyPlainImage" text="Default Image" />
                   <Label layoutX="66.0" layoutY="169.0" text="Brightness Slider" />
-                  <Slider fx:id="brightnessSlider" layoutX="42.0" layoutY="186.0" />
+                  <Slider fx:id="brightnessSlider" layoutX="42.0" layoutY="186.0" onDragDetected="#applyCustomImageSlider" />
                </children>
             </AnchorPane>
          </content>
