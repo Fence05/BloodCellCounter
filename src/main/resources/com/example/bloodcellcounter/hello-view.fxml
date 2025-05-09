@@ -29,6 +29,9 @@
                   <Button layoutX="21.0" layoutY="211.0" mnemonicParsing="false" onAction="#applyPlainImage" text="Default Image" />
                   <Label layoutX="66.0" layoutY="169.0" text="Brightness Slider" />
                   <Slider fx:id="brightnessSlider" layoutX="42.0" layoutY="186.0" onDragDetected="#applyCustomImageSlider" />
+                  <Label fx:id="whiteBloodCellCount" layoutX="24.0" layoutY="298.0" prefHeight="17.0" prefWidth="190.0" />
+                  <Button layoutX="74.0" layoutY="247.0" mnemonicParsing="false" onAction="#countCells" text="Count Cells" />
+                  <Label fx:id="redBloodCellCount" layoutX="24.0" layoutY="281.0" prefHeight="17.0" prefWidth="190.0" />
                </children>
             </AnchorPane>
          </content>

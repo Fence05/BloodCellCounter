@@ -2,6 +2,7 @@ package com.example.bloodcellcounter;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,35 +29,19 @@ public class Controller {
     @FXML
     Slider hueSlider;
 
+    @FXML
+    Label redBloodCellCount;
+
+    @FXML
+    Label whiteBloodCellCount;
+
 
 
 
     public Image plainImage;
     public Stage fileStage;
 
-
-    @FXML
-    private void initialize() {
-        //Hue slider (0-360 degrees)
-        hueSlider.setMin(0);
-        hueSlider.setMax(360);
-        hueSlider.setValue(0);
-
-        //Saturation slider (0-1)
-        saturationSlider.setMin(0);
-        saturationSlider.setMax(1);
-        saturationSlider.setValue(1);
-
-        //Brightness slider (0-1)
-        brightnessSlider.setMin(0);
-        brightnessSlider.setMax(1);
-        brightnessSlider.setValue(1);
-
-        // Listeners
-        hueSlider.valueProperty().addListener((obs, oldVal, newVal) -> applyCustomImageSlider());
-        saturationSlider.valueProperty().addListener((obs, oldVal, newVal) -> applyCustomImageSlider());
-        brightnessSlider.valueProperty().addListener((obs, oldVal, newVal) -> applyCustomImageSlider());
-    }
+    private ComputerInBack processor = new ComputerInBack();
 
     public void getImages(ActionEvent actionEvent){
         FileChooser imgChooser = new FileChooser();
@@ -95,6 +80,22 @@ public class Controller {
             imageView.setImage(processedImage);
         }
     }
+
+    public void countCells() {
+        if (plainImage != null) {  // Make sure an image is loaded
+            int[] data = processor.cellsCounter(plainImage);  // Count red and white cells
+
+            //
+            redBloodCellCount.setText("Red B Count: " + data[0]);
+            whiteBloodCellCount.setText("White Count: " + data[1]);
+        }
+    }
+
+
+
+
+
+
 
 
 }
