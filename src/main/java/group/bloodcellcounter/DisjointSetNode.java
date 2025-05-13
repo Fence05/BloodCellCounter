@@ -1,4 +1,4 @@
-package com.example.bloodcellcounter;
+package group.bloodcellcounter;
 
 
 public class DisjointSetNode<T> {

@@ -3,6 +3,6 @@ module com.example.bloodcellcounter {
     requires javafx.fxml;
 
 
-    opens com.example.bloodcellcounter to javafx.fxml;
-    exports com.example.bloodcellcounter;
+    opens group.bloodcellcounter to javafx.fxml;
+    exports group.bloodcellcounter;
 }

@@ -1,4 +1,4 @@
-package com.example.bloodcellcounter;
+package group.bloodcellcounter;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -71,7 +71,7 @@ public class Controller {
 
 
     public void applyCustomImageSlider() {
-        if (plainImage != null) {  // Add null check to prevent NPE
+        if (plainImage != null) {
             double hue = hueSlider.getValue();
             double saturation = saturationSlider.getValue();
             double brightness = brightnessSlider.getValue();
@@ -82,7 +82,7 @@ public class Controller {
     }
 
     public void countCells() {
-        if (plainImage != null) {  // Make sure an image is loaded
+        if (plainImage != null) {
             int[] data = processor.cellsCounter(plainImage);  // Count red and white cells
 
             //

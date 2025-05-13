@@ -60,7 +60,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.bloodcellcounter/com.example.bloodcellcounter.Application
+                            <mainClass>com.example.bloodcellcounter/group.bloodcellcounter.Application
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

@@ -1,4 +1,4 @@
-package com.example.bloodcellcounter;
+package group.bloodcellcounter;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

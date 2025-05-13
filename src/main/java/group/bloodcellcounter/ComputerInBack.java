@@ -1,4 +1,4 @@
-package com.example.bloodcellcounter;
+package group.bloodcellcounter;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
