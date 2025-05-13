@@ -17,7 +17,7 @@ public class ComputerInBack {
     private static final int WHITE_VAL = 2;
     private static final int BLANK_VAL = 0;
 
-    public Image ColourConverterButton(Image mainImage){
+    public Image ColourConverterButton(Image mainImage) {
 
         System.out.println("image converter button working!");
 
@@ -26,11 +26,11 @@ public class ComputerInBack {
 
         PixelReader pxReader = mainImage.getPixelReader();
 
-        WritableImage newImg = new WritableImage(width,height);
+        WritableImage newImg = new WritableImage(width, height);
         PixelWriter pxWriter = newImg.getPixelWriter();
 
-        for(int x = 0; x < width; x++){
-            for(int y = 0; y < height; y++){
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
 
                 Color color = pxReader.getColor(x, y);
 
@@ -38,13 +38,11 @@ public class ComputerInBack {
                 double saturation = color.getSaturation();
                 double brightness = color.getBrightness();
 
-                if((hue <= 30 || hue >= 300) && saturation >= 0.15 && brightness >= 0.2){
+                if ((hue <= 30 || hue >= 300) && saturation >= 0.15 && brightness >= 0.2) {
                     pxWriter.setColor(x, y, Color.RED);
-                }
-                else if((hue >= 200 || hue <= 290) && saturation >= 0.15 && brightness >= 0.2){
+                } else if ((hue >= 200 || hue <= 290) && saturation >= 0.15 && brightness >= 0.2) {
                     pxWriter.setColor(x, y, Color.PURPLE); // use this for colors https://hslpicker.com/#ff5900
-                }
-                else{
+                } else {
                     pxWriter.setColor(x, y, Color.WHITE);
                 }
             }
@@ -165,4 +163,5 @@ public class ComputerInBack {
 
         return new int[]{redCells, whiteCells};
     }
+
 }

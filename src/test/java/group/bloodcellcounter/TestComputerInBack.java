@@ -1,5 +1,5 @@
+package group.bloodcellcounter;
 
-import group.bloodcellcounter.ComputerInBack;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
