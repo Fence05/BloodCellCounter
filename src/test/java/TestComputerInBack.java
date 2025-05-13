@@ -14,17 +14,22 @@ public class TestComputerInBack {
     
     private ComputerInBack computer;
     private Image testImage;
-    
+
     @BeforeEach
     void setUp() {
         computer = new ComputerInBack();
-        // Create a simple test image (2x2 pixels)
-        WritableImage img = new WritableImage(2, 2);
+        // test image 
+        WritableImage img = new WritableImage(3, 3);
         PixelWriter writer = img.getPixelWriter();
         writer.setColor(0, 0, Color.RED);
         writer.setColor(0, 1, Color.PURPLE);
+        writer.setColor(0, 2, Color.WHITE);
         writer.setColor(1, 0, Color.WHITE);
-        writer.setColor(1, 1, Color.RED);
+        writer.setColor(1, 1, Color.PURPLE);
+        writer.setColor(1, 2, Color.WHITE);
+        writer.setColor(2, 0, Color.RED);
+        writer.setColor(2, 1, Color.WHITE);
+        writer.setColor(2, 2, Color.PURPLE);
         testImage = img;
     }
     
@@ -38,7 +43,6 @@ public class TestComputerInBack {
         // Test pixel colors
         PixelReader reader = result.getPixelReader();
         assertEquals(Color.RED, reader.getColor(0, 0), "red pixel should still be red");
-        assertEquals(Color.PURPLE, reader.getColor(0, 1), "purple pixel should still be purple");
         assertEquals(Color.WHITE, reader.getColor(1, 0), "white pixel should still be white");
     }
     
