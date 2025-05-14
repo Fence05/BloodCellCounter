@@ -13,7 +13,7 @@
     <tabs>
         <Tab text="Basic Image">
          <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <AnchorPane fx:id="imageAnchor" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <Button fx:id="loadButton" layoutX="51.0" layoutY="35.0" mnemonicParsing="false" onAction="#getImages" prefHeight="26.0" prefWidth="120.0" text="Load Image" />
                   <ImageView fx:id="imageView" fitHeight="300.0" fitWidth="300.0" layoutX="260.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
@@ -32,6 +32,7 @@
                   <Label fx:id="whiteBloodCellCount" layoutX="24.0" layoutY="298.0" prefHeight="17.0" prefWidth="190.0" />
                   <Button layoutX="74.0" layoutY="247.0" mnemonicParsing="false" onAction="#countCells" text="Count Cells" />
                   <Label fx:id="redBloodCellCount" layoutX="24.0" layoutY="281.0" prefHeight="17.0" prefWidth="190.0" />
+                  <Button layoutX="81.0" layoutY="286.0" mnemonicParsing="false" onAction="#highlightCells" text="Box Cells" />
                </children>
             </AnchorPane>
          </content>

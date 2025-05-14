@@ -6,6 +6,7 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,9 +14,21 @@ public class ComputerInBack {
 
 
     private Set<DisjointSetNode<Integer>> cellRoot = new HashSet<>();
+    private DisjointSetController<Integer> DisjointSC = new DisjointSetController<>();
+    private DisjointSetNode<Integer>[] pictureNode;
+
+
     private static final int RED_VAL = 1;
     private static final int WHITE_VAL = 2;
     private static final int BLANK_VAL = 0;
+
+    public DisjointSetNode<Integer>[] getPictureNode() {
+        return pictureNode;
+    }
+
+    public DisjointSetController<Integer> getDisjointSC() {
+        return DisjointSC;
+    }
 
     public Image ColourConverterButton(Image mainImage) {
 
@@ -110,6 +123,7 @@ public class ComputerInBack {
         PixelReader pReader = image.getPixelReader();
         int currPixel = 0;
 
+        // Initialize all pictureNode entries to non-null DisjointSetNodes
         for (int y = 0; y < imgHeight; y++) {
             for (int x = 0; x < imgWidth; x++) {
                 pictureNode[currPixel] = new DisjointSetNode<>(null, x, y);
@@ -125,19 +139,20 @@ public class ComputerInBack {
             }
         }
 
+        // Ensure that there are no null nodes, and process only the valid ones
         for (int i = 0; i < pictureNode.length; i++) {
-            if (pictureNode[i].getData() != BLANK_VAL) {
+            if (pictureNode[i] != null && pictureNode[i].getData() != BLANK_VAL) {
                 int cellVal = pictureNode[i].getData();
 
                 // Check right
-                if ((i % imgWidth) != (imgWidth - 1)
-                        && (i + 1) < pictureNode.length
+                if ((i % imgWidth) != (imgWidth - 1) && (i + 1) < pictureNode.length && pictureNode[i + 1] != null
                         && pictureNode[i + 1].getData() == cellVal) {
                     DSC.unionBySize(pictureNode[i], pictureNode[i + 1]);
                 }
 
                 // Check below
-                if ((i + imgWidth) < pictureNode.length && pictureNode[i + imgWidth].getData() == cellVal) {
+                if ((i + imgWidth) < pictureNode.length && pictureNode[i + imgWidth] != null
+                        && pictureNode[i + imgWidth].getData() == cellVal) {
                     DSC.unionBySize(pictureNode[i], pictureNode[i + imgWidth]);
                 }
             }
@@ -145,7 +160,7 @@ public class ComputerInBack {
 
         cellRoot.clear();
         for (DisjointSetNode<Integer> node : pictureNode) {
-            if (node.getData() != BLANK_VAL) {
+            if (node != null && node.getData() != BLANK_VAL) {
                 DisjointSetNode<Integer> root = DSC.findNodeParent(node);
                 cellRoot.add(root);
             }
@@ -163,5 +178,61 @@ public class ComputerInBack {
 
         return new int[]{redCells, whiteCells};
     }
+
+
+
+    public static HashMap<DisjointSetNode<Integer>, int[]> boxesSurroundingCells(
+            DisjointSetNode<Integer>[] pictureNode,
+            DisjointSetController<Integer> disjointSC
+    ) {
+        HashMap<DisjointSetNode<Integer>, int[]> boxInfoMap = new HashMap<>();
+
+        for (DisjointSetNode<Integer> node : pictureNode) {
+            if (node.getData() != 0) {
+                DisjointSetNode<Integer> root = disjointSC.findNodeParent(node);
+
+                int[] box = boxInfoMap.getOrDefault(root, new int[]{
+                        node.getData(), // cell type (0 = blank, 1 = red, 2 = white)
+                        Integer.MAX_VALUE, // minX
+                        Integer.MAX_VALUE, // minY
+                        Integer.MIN_VALUE, // maxX
+                        Integer.MIN_VALUE  // maxY
+                });
+
+                int x = node.getX();
+                int y = node.getY();
+
+                box[1] = Math.min(box[1], x); // minX
+                box[2] = Math.min(box[2], y); // minY
+                box[3] = Math.max(box[3], x); // maxX
+                box[4] = Math.max(box[4], y); // maxY
+
+                boxInfoMap.put(root, box);
+            }
+        }
+
+        //convert maxX/maxY into width/height
+        for (DisjointSetNode<Integer> root : boxInfoMap.keySet()) {
+            int[] box = boxInfoMap.get(root);
+            int minX = box[1];
+            int minY = box[2];
+            int maxX = box[3];
+            int maxY = box[4];
+            int width = maxX - minX;
+            int height = maxY - minY;
+
+            // {cellType, minX, minY, width, height}
+            int[] data = new int[]{box[0], minX, minY, width, height};
+            boxInfoMap.put(root, data);
+        }
+
+        return boxInfoMap;
+    }
+
+
+
+
+
+
 
 }
